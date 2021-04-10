@@ -12,68 +12,72 @@ use Illuminate\Support\Facades\Config;
 
 class ShipmentAccountInfo extends ShipmentCourier
 {
-  // Client credentials
-  private $clientEmail;
-  private $clientAccountNumber;
-  private $clientPassword;
-  private $clientAccountPin;
+
+  // shipmentAccountInfo
+  public $accountInfo;
 
 
-  // Get the config. for this class
-  public $shipmentConfig;
+  public function __construct()
+  {
+    parent::__construct();
 
+    $this->accountInfo = $this->shipmentConfig['accountInfo'];
 
-  // public function __construct( Config $shipmentConfig = NULL )
-  // {
-  //   $this->shipmentConfig = $shipmentConfig;
-  //   return $this;
-  // }
+    return $this;
+  }
 
   public function setupAccountInfo()
   {
-    $this->configAccountInfo = $this->shipmentConfig['accountInfo'];
+    $this->setEmail($this->shipmentConfig['accountInfo']['email']);
+        //  ->getEmail();
+    $this->setPassword($this->shipmentConfig['accountInfo']['password']);
+        //  ->getPassword();
+    $this->setAccountNumber($this->shipmentConfig['accountInfo']['accountNumber']);
+        //  ->getAccountNumber();
+    $this->setAccountPin($this->shipmentConfig['accountInfo']['accountPin']);
+        //  ->getAccountPin();
+
+    return $this;
   }
 
-  public function getEmail( $key = 'clientEmail' )
+  public function getEmail()
+  {
+    return $this->getProperty( 'clientEmail' );
+  }
+
+  public function setEmail( $value )
+  {
+    return $this->setProperty( 'clientEmail', $value );
+  }
+
+  public function getPassword( $key = 'clientPassword' )
   {
     return $this->getProperty( $key );
   }
-
-  public function setEmail( $key = 'clientEmail', $value = 'dev2@monzamedia.com' )
+  
+  public function setPassword( $value )
   {
-    return $this->setProperty( $key, $value );
+    return $this->setProperty( 'clientPassword', $value );
   }
 
-
-
-  public function getProperty( $key = NULL )
+  public function getAccountNumber( $key = 'clientAccountNumber' )
   {
-    if ( $key != NULL || isset( $key ) ) {
-      if ( $this->checkPropertyExists( $key ) ) {
-        return $this->{$key};
-      }
-    }
-
-    return;
+    return $this->getProperty( $key );
+  }
+  
+  public function setAccountNumber( $value )
+  {
+    return $this->setProperty( 'clientAccountNumber', $value );
   }
 
-  public function setProperty( $key, $value = NULL )
+  public function getAccountPin( $key = 'clientAccountPin' )
   {
-    if ( $key != NULL || isset( $key ) ) {
-      if ( $this->checkPropertyExists( $key ) ) {
-        $this->{$key} = $value;
-        return $this;
-      }
-    }
-
-    return;
+    return $this->getProperty( $key );
   }
-
-  private function checkPropertyExists( $key )
+  
+  public function setAccountPin( $value )
   {
-    $objProps = array_keys( get_object_vars( $this ) );
-    
-    return in_array( $key, $objProps );
+    return $this->setProperty( 'clientAccountPin', $value );
   }
 
 }

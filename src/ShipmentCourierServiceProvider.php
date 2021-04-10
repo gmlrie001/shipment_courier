@@ -4,6 +4,7 @@ namespace Vault\ShipmentCourier;
 
 use Illuminate\Support\ServiceProvider;
 
+
 class ShipmentCourierServiceProvider extends ServiceProvider
 {
   /**
