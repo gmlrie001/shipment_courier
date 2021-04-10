@@ -30,6 +30,14 @@
 
     'shipmentPickupDetails' => [
 
+      'pickupComments'     => NULL,
+      'pickupReference1'   => NULL,
+      'pickupReference2'   => NULL,
+      'pickupDate'         => NULL,
+      'pickupReadtTime'    => NULL,
+      'pickupClosingTime'  => NULL,
+      'pickupEntityStatus' => NULL
+
     ],
 
   ];
