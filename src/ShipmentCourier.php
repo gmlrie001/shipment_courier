@@ -76,18 +76,15 @@ class ShipmentCourier
   public function __construct( Config $shipmentConfig = NULL )
   {
     $this->shipmentConfig = $shipmentConfig;
-
     return $this;
   }
 
   public function getProperty( $key = NULL )
   {
     if ( $key != NULL || isset( $key ) ) {
-
       if ( $this->checkPropertyExists( $key ) ) {
         return $this->{$key};
       }
-
     }
 
     return;
@@ -96,12 +93,10 @@ class ShipmentCourier
   public function setProperty( $key, $value = NULL )
   {
     if ( $key != NULL || isset( $key ) ) {
-
       if ( $this->checkPropertyExists( $key ) ) {
         $this->{$key} = $value;
         return $this;
       }
-
     }
 
     return;
@@ -110,7 +105,7 @@ class ShipmentCourier
   private function checkPropertyExists( $key )
   {
     $objProps = array_keys( get_object_vars( $this ) );
-
+    
     return in_array( $key, $objProps );
   }
 
