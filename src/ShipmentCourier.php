@@ -1,10 +1,11 @@
 <?php
 
-// namespace Vault\ShipmentCourier;
+namespace Vault\ShipmentCourier;
 
 // /* Facade Includes */
-// use Illuminate\Support\Facades\Log;
-// use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Config;
 
 
 class ShipmentCourier
@@ -72,9 +73,9 @@ class ShipmentCourier
   public $shipmentConfig;
 
 
-  public function __construct( $shipmentConfig = NULL )
+  public function __construct( Config $shipmentConfig = NULL )
   {
-    $this->shipmentConfig = require_once( $shipmentConfig );
+    $this->shipmentConfig = $shipmentConfig;
 
     return $this;
   }
@@ -114,28 +115,3 @@ class ShipmentCourier
   }
 
 }
-
-$directory = dirname( __DIR__ ) . DIRECTORY_SEPARATOR . "config";
-$filename  = str_replace( ['.php', '_', '-'], ['', '', ''], basename( __FILE__ ) );
-// $splitName = preg_split( '/(.)(?=[A-Z])/usx', lcfirst( $filename ), -1, PREG_SPLIT_DELIM_CAPTURE );
-$delimiter  = "_";
-$configname = strtolower( preg_replace( '/(.)(?=[A-Z])/u', '$1'.$delimiter, $filename ) );
-
-$configFile = $directory . DIRECTORY_SEPARATOR . $configname . '.php';
-// exit( $configFile );
-
-$shipperCourierWrapper = new ShipmentCourier( $configFile );
-
-print_r([
-  __FILE__, 
-  __LINE__, 
-  $configFile, 
-  get_object_vars( $shipperCourierWrapper )
-]);
-
-print_r([
-  __FILE__, 
-  __LINE__, 
-  $shipperCourierWrapper->setProperty( 'specialDeliveryInstructions', $shipperCourierWrapper->shipmentConfig['specialDeliveryInstructions'] )
-                        ->getProperty( 'specialDeliveryInstructions' )
-]);
