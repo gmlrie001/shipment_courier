@@ -28,16 +28,41 @@ class ShipmentAdditionalServices extends ShipmentCourier
 
   public function setupAdditionalServices()
   {
-    // $this->setEmail($this->shipmentConfig['accountInfo']['email']);
-    //     //  ->getEmail();
-    // $this->setPassword($this->shipmentConfig['accountInfo']['password']);
-    //     //  ->getPassword();
-    // $this->setAccountNumber($this->shipmentConfig['accountInfo']['accountNumber']);
-    //     //  ->getAccountNumber();
-    // $this->setAccountPin($this->shipmentConfig['accountInfo']['accountPin']);
-    //     //  ->getAccountPin();
+    $this->setRequiresInsurance($this->shipmentConfig['additionalServices']['requiresInsurance']);
+        //  ->getRequiresInsurance();
+    $this->setInsuranceValue($this->shipmentConfig['additionalServices']['insuranceValue']);
+        //  ->getInsuranceValue();
+    $this->setEntityIsDocument($this->shipmentConfig['additionalServices']['isDocument']);
+        //  ->getEntityIsDocument();
 
     return $this;
+  }
+
+  public function getRequiresInsurance()
+  {
+    return $this->getProperty( 'shipmentRequiresInsurance' );
+  }
+  public function setRequiresInsurance( $value = false )
+  {
+    return $this->setProperty( 'shipmentRequiresInsurance', $value );
+  }
+
+  public function getInsuranceValue()
+  {
+    return $this->getProperty( 'shipmentInsuranceValue' );
+  }
+  public function setInsuranceValue( $value = 0 )
+  {
+    return $this->setProperty( 'shipmentInsuranceValue', $value );
+  }
+
+  public function getEntityIsDocument()
+  {
+    return $this->getProperty( 'shipmentIsDocument' );
+  }
+  public function setEntityIsDocument( $value = false )
+  {
+    return $this->setProperty( 'shipmentIsDocument', $value );
   }
 
 }
