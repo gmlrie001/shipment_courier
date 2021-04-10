@@ -74,7 +74,6 @@
       'delivery_phone',
 
     ],
-
     // ],
 
     'shipmentOrderItems' => [
