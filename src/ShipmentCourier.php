@@ -29,7 +29,7 @@ class ShipmentCourier
   private $pickupReference2;
   // private $pickupReference = [];
   private $pickupDate;
-  private $pickupReadtTime;
+  private $pickupReadyTime;
   private $pickupClosingTime;
   private $pickupEntityStatus;
   // Origin physical address - pickup point
