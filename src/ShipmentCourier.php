@@ -15,23 +15,28 @@ class ShipmentCourier
   private $clientAccountNumber;
   private $clientPassword;
   private $clientAccountPin;
+
   // The shipment line items
-  private $shipmentLineItems;
+  private $shipmentLineItems = [];
+
   // Special delivery instructions
   private $specialDeliveryInstructions;
   // Shipment type
-  private $shipmentIsDocument = false;
+  private $shipmentIsDocument        = false;
   private $shipmentRequiresInsurance = false;
-  private $shipmentInsuranceValue = 0;
+  private $shipmentInsuranceValue    = 0;
+
   // Pickup details
-  private $pickupComments;
-  private $pickupReference1;
-  private $pickupReference2;
-  // private $pickupReference = [];
   private $pickupDate;
   private $pickupReadtTime;
   private $pickupClosingTime;
   private $pickupEntityStatus;
+  private $pickupComments;
+  private $pickupReference1;
+  private $pickupReference2;
+  // Reference1 and Reference2 held in array;
+  private $pickupReference = ["", ""];
+
   // Origin physical address - pickup point
   private $originStreetAddress;
   private $originBusinessPark;
@@ -46,8 +51,11 @@ class ShipmentCourier
   private $originContactPerson;
   private $originContactPhone;
   private $originContactEmail;
+  private $originReference1;
+  private $originReference2;
   // Reference1 and Reference2 held in array;
-  private $originReference = [];
+  private $originReference = ["", ""];
+
   // Destination physical address - pickup point
   private $destinationStreetAddress;
   private $destinationBusinessPark;
@@ -62,12 +70,19 @@ class ShipmentCourier
   private $destinationContactPerson;
   private $destinationContactPhone;
   private $destinationContactEmail;
+  private $destinationReference1;
+  private $destinationReference2;
   // Reference1 and Reference2 held in array;
-  private $destinationReference = [];
+  private $destinationReference = ["", ""];
+
   // Get the config. for this class
   public $shipmentConfig;
 
 
+  /**
+   * Class instantiation
+   * 
+   */
   public function __construct()
   {
     $this->shipmentConfig = Config::get( 'shipment_courier' );
@@ -75,6 +90,14 @@ class ShipmentCourier
     return $this;
   }
 
+  /**
+   * Generic public object property getter
+   * 
+   * @param: key (default: NULL)
+   * 
+   * @return: class::key
+   * 
+   */
   public function getProperty( $key = NULL )
   {
     if ( $key != NULL || isset( $key ) ) {
@@ -82,15 +105,24 @@ class ShipmentCourier
         return $this->{$key};
       }
     }
-
     return;
   }
 
+  /**
+   * Generic public object property setter
+   * 
+   * @param: key required
+   * @param: value (default: NULL)
+   * 
+   * @return: class::instance
+   * 
+   */
   public function setProperty( $key, $value = NULL )
   {
     if ( $key != NULL || isset( $key ) ) {
       if ( $this->checkPropertyExists( $key ) ) {
         $this->{$key} = $value;
+
         return $this;
       }
     }
@@ -98,8 +130,20 @@ class ShipmentCourier
     return;
   }
 
-  private function checkPropertyExists( $key )
+  /**
+   * Checks if the supplied property value actually exists.
+   * 
+   * @param: key required
+   * 
+   * @return: boolean
+   * 
+   */
+  private function checkPropertyExists( $key = NULL )
   {
+    if ( ! isset( $key ) || NULL == $key ) {
+      return;
+    }
+
     $objProps = array_keys( get_object_vars( $this ) );
     
     return in_array( $key, $objProps );

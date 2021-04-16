@@ -36,7 +36,7 @@
 
       'the_courier_guy' => [
         'courierName' => "The Courier Guy", 
-        'apiBase' => "", 
+        'apiBase' => "http://adpdemo.pperfect.com/ecomService/Json/", 
         'apiEndpoints' => [
           'get_rate' => [
             'uri' => "", 
@@ -73,10 +73,10 @@
     // 'shipmentAccountInfo'
     'accountInfo' => [
 
-      'email'         => "riedaa@monzamedia.com",
-      'password'      => "12345678",
-      'accountNumber' => "094551",
-      'accountPin'    => "3254"
+      'email'         => "tcg11@ecomm",
+      'password'      => "tcg11ecomm",
+      'accountNumber' => NULL,
+      'accountPin'    => NULL,
     
     ],
 

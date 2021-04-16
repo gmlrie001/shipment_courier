@@ -28,13 +28,13 @@ class ShipmentAccountInfo extends ShipmentCourier
 
   public function setupAccountInfo()
   {
-    $this->setEmail($this->shipmentConfig['accountInfo']['email']);
+    $this->setEmail($this->accountInfo['email']);
         //  ->getEmail();
-    $this->setPassword($this->shipmentConfig['accountInfo']['password']);
+    $this->setPassword($this->accountInfo['password']);
         //  ->getPassword();
-    $this->setAccountNumber($this->shipmentConfig['accountInfo']['accountNumber']);
+    $this->setAccountNumber($this->accountInfo['accountNumber']);
         //  ->getAccountNumber();
-    $this->setAccountPin($this->shipmentConfig['accountInfo']['accountPin']);
+    $this->setAccountPin($this->accountInfo['accountPin']);
         //  ->getAccountPin();
 
     return $this;
