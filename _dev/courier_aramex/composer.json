@@ -1,0 +1,40 @@
+{
+  "name": "vault/shipment_courier",
+  "type": "library",
+  "description": "Class wrapper for various shipment couriers, e.g. Aramex, The Courier Guys, etc.",
+  "keywords": [
+    "vault_core", 
+    "shipment", 
+    "couriers" 
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "M. Riedaa Gamieldien",
+      "email": "riedaa@monzamedia.com"
+    }
+  ],
+  "require": {},
+  "minimum-stability": "dev",
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Vault\\ShipmentCourier\\": "src"
+    },
+    "files": [
+      "src/Helpers/ShipmentCourierHelpers.php"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Vault\\ShipmentCourier\\ShipmentCourierServiceProvider"
+      ],
+      "aliases": {
+        "ShipmentCourier": "Vault\\ShipmentCourier\\Facades\\ShipmentCourier"
+      }
+    }
+  }
+}
