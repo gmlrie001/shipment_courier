@@ -21,24 +21,72 @@ class ShipmentItems extends ShipmentCourier
   {
     parent::__construct();
 
-    $this->orderConfig = $this->shipmentConfig['orderDefaultValues'];
+    // $this->orderConfig = $this->shipmentConfig['orderDefaultValues'];
     $this->orderItems = $orderItems;
+    $this->shipmentLineItems = [];
 
     return $this;
   }
 
-  public function setupLineItems( $orderProducts = [] )
+  public function lineItems( $cart )
   {
-    foreach( $orderProducts as $key=>$item ) {
-      $this->setLineItem($this->shipmentConfig['accountInfo']['email']);
-      //  ->getEmail();
+    if ( ! method_exists( $cart, 'products' ) ) return;
+
+    foreach( $cart->products as $key => $product ) {
+      if ( ! method_exists( $product, 'product' ) ) {
+        continue;
+      }
+
+      try {
+        $item = $product->product;
+        $this->setLineItem( $item, $key );
+        unset( $item );
+
+      } catch( \Exception $error ) {}
+
+      unset( $product, $key );
     }
-    $this->setPassword($this->shipmentConfig['accountInfo']['password']);
-        //  ->getPassword();
-    $this->setAccountNumber($this->shipmentConfig['accountInfo']['accountNumber']);
-        //  ->getAccountNumber();
-    $this->setAccountPin($this->shipmentConfig['accountInfo']['accountPin']);
-        //  ->getAccountPin();
+
+    return $this;
+  }
+
+
+  public function getLineItems()
+  {
+    return $this->shipmentLineItems;
+  }
+  public function setLineItems( $cart )
+  {
+    $this->lineItems( $cart );
+
+    return $this;
+  }
+
+  public function getLineItem( $key )
+  {
+    return $this->shipmentLineItems[$key];
+  }
+  public function setLineItem( $item, $key = 0 )
+  {
+    // Consumer of single items from the basket->products relationship
+    $reqKeys = ['price', 'pieces', 'title', 'length', 'width', 'height', 'weight'];
+
+    foreach ($reqKeys as $reqKey) {
+
+      if ( property_exists( $item, $reqKey ) ) {
+        $this->shipmentLineItems[$key][$reqKey] = $item->{$reqKey};
+
+      } elseif ( ! property_exists( $item, $reqKey )|| $reqKey == 'pieces' ) {
+        $this->shipmentLineItems[$key][$reqKey] = 1;
+
+      } elseif ( ! property_exists( $item, $reqKey )|| $reqKey == 'weight' ) {
+        $this->shipmentLineItems[$key]['actual_mass'] = $item->{$reqKey};
+      }
+
+      unset( $reqKey );
+    }
+
+    dd( $this, get_defined_vars() );
 
     return $this;
   }

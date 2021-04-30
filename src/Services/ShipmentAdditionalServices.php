@@ -28,11 +28,11 @@ class ShipmentAdditionalServices extends ShipmentCourier
 
   public function setupAdditionalServices()
   {
-    $this->setRequiresInsurance($this->shipmentConfig['additionalServices']['requiresInsurance']);
+    $this->setRequiresInsurance($this->additionalServices['requiresInsurance']);
         //  ->getRequiresInsurance();
-    $this->setInsuranceValue($this->shipmentConfig['additionalServices']['insuranceValue']);
+    $this->setInsuranceValue($this->additionalServices['insuranceValue']);
         //  ->getInsuranceValue();
-    $this->setEntityIsDocument($this->shipmentConfig['additionalServices']['isDocument']);
+    $this->setEntityIsDocument($this->additionalServices['isDocument']);
         //  ->getEntityIsDocument();
 
     return $this;

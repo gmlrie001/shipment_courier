@@ -22,20 +22,17 @@ class ShipmentAccountInfo extends ShipmentCourier
     parent::__construct();
 
     $this->accountInfo = $this->shipmentConfig['accountInfo'];
+    unset( $this->shipmentConfig['accountInfo'] );
 
     return $this;
   }
 
   public function setupAccountInfo()
   {
-    $this->setEmail($this->shipmentConfig['accountInfo']['email']);
-        //  ->getEmail();
-    $this->setPassword($this->shipmentConfig['accountInfo']['password']);
-        //  ->getPassword();
-    $this->setAccountNumber($this->shipmentConfig['accountInfo']['accountNumber']);
-        //  ->getAccountNumber();
-    $this->setAccountPin($this->shipmentConfig['accountInfo']['accountPin']);
-        //  ->getAccountPin();
+    $this->setEmail( $this->accountInfo['email'] )
+         ->setPassword( $this->accountInfo['password'] )
+         ->setAccountNumber( $this->accountInfo['accountNumber'] )
+         ->setAccountPin( $this->accountInfo['accountPin'] );
 
     return $this;
   }
@@ -44,40 +41,44 @@ class ShipmentAccountInfo extends ShipmentCourier
   {
     return $this->getProperty( 'clientEmail' );
   }
-
   public function setEmail( $value )
   {
-    return $this->setProperty( 'clientEmail', $value );
+    $this->setProperty( 'clientEmail', $value );
+
+    return $this;
   }
 
   public function getPassword( $key = 'clientPassword' )
   {
     return $this->getProperty( $key );
   }
-  
   public function setPassword( $value )
   {
-    return $this->setProperty( 'clientPassword', $value );
+    $this->setProperty( 'clientPassword', $value );
+
+    return $this;
   }
 
   public function getAccountNumber( $key = 'clientAccountNumber' )
   {
     return $this->getProperty( $key );
   }
-  
   public function setAccountNumber( $value )
   {
-    return $this->setProperty( 'clientAccountNumber', $value );
+    $this->setProperty( 'clientAccountNumber', $value );
+
+    return $this;
   }
 
   public function getAccountPin( $key = 'clientAccountPin' )
   {
     return $this->getProperty( $key );
   }
-  
   public function setAccountPin( $value )
   {
-    return $this->setProperty( 'clientAccountPin', $value );
+    $this->setProperty( 'clientAccountPin', $value );
+
+    return $this;
   }
 
 }

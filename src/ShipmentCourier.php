@@ -15,14 +15,25 @@ class ShipmentCourier
   private $clientAccountNumber;
   private $clientPassword;
   private $clientAccountPin;
+
   // The shipment line items
   private $shipmentLineItems;
+  // item_{
+  //   key, 
+  //   desc, 
+  //   pieces, 
+  //   price, 
+  //   [l, w, h], 
+  //   actual_mass
+  // }
+
   // Special delivery instructions
   private $specialDeliveryInstructions;
   // Shipment type
   private $shipmentIsDocument = false;
   private $shipmentRequiresInsurance = false;
   private $shipmentInsuranceValue = 0;
+
   // Pickup details
   private $pickupComments;
   private $pickupReference1;
@@ -32,6 +43,7 @@ class ShipmentCourier
   private $pickupReadyTime;
   private $pickupClosingTime;
   private $pickupEntityStatus;
+
   // Origin physical address - pickup point
   private $originStreetAddress;
   private $originBusinessPark;
@@ -48,6 +60,7 @@ class ShipmentCourier
   private $originContactEmail;
   // Reference1 and Reference2 held in array;
   private $originReference = [];
+
   // Destination physical address - pickup point
   private $destinationStreetAddress;
   private $destinationBusinessPark;
@@ -64,6 +77,7 @@ class ShipmentCourier
   private $destinationContactEmail;
   // Reference1 and Reference2 held in array;
   private $destinationReference = [];
+
   // Get the config. for this class
   public $shipmentConfig;
 
