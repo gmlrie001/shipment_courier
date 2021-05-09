@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Config;
 
+use Vault\ShipmnentCourier\Exceptions\ShipmentCourierExceptions;
+
 
 class ShipmentCourier
 {
@@ -92,9 +94,11 @@ class ShipmentCourier
   public function getProperty( $key = NULL )
   {
     if ( $key != NULL || isset( $key ) ) {
-      if ( $this->checkPropertyExists( $key ) ) {
+
+      if ( $this->__isset( $key ) ) {
         return $this->{$key};
       }
+
     }
 
     return;
@@ -102,8 +106,10 @@ class ShipmentCourier
 
   public function setProperty( $key, $value = NULL )
   {
+    if ( ! $key || NULL == $key ) throw new ShipmentCourierException( 'Need to provide a valid key to set its value.' );
+
     if ( $key != NULL || isset( $key ) ) {
-      if ( $this->checkPropertyExists( $key ) ) {
+      if ( $this->__isset( $key ) ) {
         $this->{$key} = $value;
 
         return $this;
@@ -113,7 +119,7 @@ class ShipmentCourier
     return;
   }
 
-  private function checkPropertyExists( $key )
+  public function __isset( $key )
   {
     $objProps = array_keys( get_object_vars( $this ) );
     
