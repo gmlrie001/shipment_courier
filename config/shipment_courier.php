@@ -9,7 +9,8 @@
     'accountInfo' => [
       'email'         => "tcg11@ecomm",
       'password'      => "tcgecomm11",
-      'accountNumber' => NULL,
+      'accountNumber' => 'PPO',
+      'serviceType'   => 'ONX',
       'accountPin'    => NULL,
     ],
 
@@ -71,10 +72,11 @@
       'pickupComments'     => NULL,
       'pickupReference1'   => NULL,
       'pickupReference2'   => NULL,
-      'pickupDate'         => NULL,
-      'pickupReadtTime'    => NULL,
-      'pickupClosingTime'  => NULL,
-      'pickupEntityStatus' => NULL
+      'pickupDate'         => 'tomorrow',
+      'pickupReadyTime'    => '14:00',
+      'pickupOpeningTime'  => '11:00',
+      'pickupClosingTime'  => '17:00',
+      'pickupEntityStatus' => 'Ready'
     ],
 
   ];
