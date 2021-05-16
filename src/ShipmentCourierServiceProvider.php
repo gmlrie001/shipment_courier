@@ -62,11 +62,13 @@ class ShipmentCourierServiceProvider extends ServiceProvider
     $this->mergeConfigFrom( __DIR__ . '/../config/shipment_courier.php', 'shipment_courier' ) ;
 
     // Register the main class to use with the facade
-    $this->app->bind( 'shipment_courier', function () {
+    $this->app->singleton( 'shipment_courier', function () {
       return new ShipmentCourier();
     });
 
-    // return $this->app->make( 'Vault\ShipmentCourier\ShipmentCourier' );
+    $this->app->bind( 'ShipmentCourier', function () {
+      return Vault\ShipmentCourier\ShipmentCourier();
+    });
   }
 
   /**
@@ -76,7 +78,7 @@ class ShipmentCourierServiceProvider extends ServiceProvider
    */
   public function provides()
   {
-    return ['shipment_courier'];
+    return ['shipment_courier', 'ShipmentCourier'];
   }
 
 }
