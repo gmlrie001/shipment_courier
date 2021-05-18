@@ -91,6 +91,7 @@ class ShipmentCourier
     if ( $key != NULL || isset( $key ) ) {
       if ( $this->checkPropertyExists( $key ) ) {
         $this->{$key} = $value;
+
         return $this;
       }
     }
