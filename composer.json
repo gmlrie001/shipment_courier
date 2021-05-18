@@ -22,7 +22,10 @@
   "autoload": {
     "psr-4": {
       "Vault\\ShipmentCourier\\": "src"
-    }
+    },
+    "files": [
+      "src/Helpers/ShipmentCourierHelpers.php"
+    ]
   },
   "extra": {
     "laravel": {

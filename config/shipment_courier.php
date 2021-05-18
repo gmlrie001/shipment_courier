@@ -2,6 +2,70 @@
 
   return [
 
+    'api' => [
+      'aramex' => [
+        'courierName' => "Aramex", 
+        'apiBase' => "https://nservice.aramex.co.za/Json/JsonV1", 
+        'apiEndpoints' => [
+          'get_rate' => [
+            'uri' => "GetRate", 
+            'method' => "POST"
+          ], 
+          'submit_waybill' => [
+            'uri' => "SubmitWaybill", 
+            'method' => "POST"
+          ], 
+          'track_waybill'  => [
+            'uri' => "GetWaybillTracking",
+            'method' => "POST"
+          ], 
+          'submit_pickup' => [
+            'uri' => "SubmitCollection", 
+            'method' => "POST",
+          ], 
+          'track_pickup' => [
+            'uri' => "GetCollectionTracking", 
+            'method' => "POST",
+          ], 
+          'get_domestic_best_rate_monzamedia' => [
+            'uri' => "GetDomesticBestService", 
+            'method' => "POST"
+          ],
+        ], 
+      ], 
+
+      'the_courier_guy' => [
+        'courierName' => "The Courier Guy", 
+        'apiBase' => "", 
+        'apiEndpoints' => [
+          'get_rate' => [
+            'uri' => "", 
+            'method' => "POST"
+          ], 
+          'submit_waybill' => [
+            'uri' => "", 
+            'method' => "POST"
+          ], 
+          'track_waybill'  => [
+            'uri' => "",
+            'method' => "POST"
+          ], 
+          'submit_pickup' => [
+            'uri' => "", 
+            'method' => "POST",
+          ], 
+          'track_pickup' => [
+            'uri' => "", 
+            'method' => "POST",
+          ], 
+          'tcg_specific' => [
+            'uri' => "", 
+            'method' => "POST"
+          ], 
+        ], 
+      ], 
+    ], 
+
     // Special delivery instructions default value
     'specialDeliveryInstructions' => "None",
 
@@ -33,6 +97,8 @@
       'originContactPhone'  => "89412116",
       'originContactEmail'  => "riedaa@monzamedia.com",
 
+
+      'originReference'     => NULL,
     ],
 
     'shipmentDestination' => [
