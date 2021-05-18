@@ -12,73 +12,87 @@ use Illuminate\Support\Facades\Config;
 
 class ShipmentDestination extends ShipmentCourier
 {
+  /**
+   * ==================================
+   * TINKER Command to run for testing:
+   * ==================================
+   * 
+   * use Vault\ShipmentCourier\Services\ShipmentDestination;
+   * use \App\Models\Basket;
+   * use App\Models\User;
+   * 
+   * $order = ( new Basket )->where('order_placed', '!=', NULL)->latest('updated_at')->first()
+   *                        ->only(
+   *                            array_merge( 
+   *                                  Config::get( 'shipment_courier.orderDeliveryKeys' ), 
+   *                                  ['id', 'user_id'] 
+   *                            )
+   *                        );
+   * $order['user.email'] = User::find( $order['user_id'] )->value( 'email' );
+   * 
+   * $info = new ShipmentDestination( $order ); 
+   * $info->setupDestination( $order );
+   * 
+   */
 
-  public $destinationInfo;
-  public $orderDetails;
+
+  public $shipmentDestinationSettings;
+  public $orderDelivery;
 
 
-  public function __construct( $orderDetails )
+  public function __construct( $orderDelivery = NULL )
   {
     parent::__construct();
 
-    $this->destinationInfo = $this->shipmentConfig;
-    $this->orderDetails = $orderDetails;
+    $this->shipmentDestinationSettings = $this->shipmentConfig['shipmentDestination'];
+    $this->shipmentOrderSettings = $this->shipmentConfig['orderDeliveryKeys'];
+
+    $this->destinationKeys = array_keys( $this->shipmentDestinationSettings );
+    $this->orderDelivey = $this->destinationKeys;
+
+    // $this->destinationVals = array_values( $this->shipmentOrderSettings );
+    // $this->destinationSettings = array_combine( $this->destinationKeys, $this->destinationVals );
+
+    dump( $this, get_defined_vars() );
 
     return $this;
   }
 
-  public function setupDestination()
+  public function setupDestination( $deliveryAddress = NULL )
   {
-    $this->setEmail($this->shipmentConfig['accountInfo']['email']);
-        //  ->getEmail();
-    $this->setPassword($this->shipmentConfig['accountInfo']['password']);
-        //  ->getPassword();
-    $this->setAccountNumber($this->shipmentConfig['accountInfo']['accountNumber']);
-        //  ->getAccountNumber();
-    $this->setAccountPin($this->shipmentConfig['accountInfo']['accountPin']);
-        //  ->getAccountPin();
+    if ( $deliveryAddress == NULL || ! isset( $deliveryAddress ) ) { $deliveryAddress = $this->orderDelivery; }
 
-    return $this;
-  }
+    // if ( isset( $this->orderDelivery ) && $this->orderDelivery instanceof \Illuminate\Support\Arr ) {
+    if ( isset( $this->destinationKeys ) && isset( $deliveryAddress ) ) {
+      foreach( $this->destinationKeys as $setting => $key ) {
+        // if ( $key === 'destinationContactEmail' ) continue;
 
-  public function getEmail()
-  {
-    return $this->getProperty( 'clientEmail' );
-  }
+        $destKey = $this->shipmentDestinationSettings[$this->destinationKeys[$setting]];
+        $destVal = $deliveryAddress[$destKey];
+        if ( is_array( $deliveryAddress[$destKey] ) && count( $deliveryAddress[$destKey] ) > 0 ) {
+          $destVal = trim( implode( ' ', $deliveryAddress[$destKey] ) );
+        }
+        
+        dump( __LINE__, "KEY:=> " . $key . "(" . $destKey . ")" . " _ " . "VALUE:=> " . $destVal );
 
-  public function setEmail( $value )
-  {
-    return $this->setProperty( 'clientEmail', $value );
-  }
+        $value = $destVal;
+        $this->setProperty( $key, $destVal )->getProperty( $key );
 
-  public function getPassword( $key = 'clientPassword' )
-  {
-    return $this->getProperty( $key );
-  }
-  
-  public function setPassword( $value )
-  {
-    return $this->setProperty( 'clientPassword', $value );
-  }
+        unset( $settings, $key, $value, $destVal );
+      }
 
-  public function getAccountNumber( $key = 'clientAccountNumber' )
-  {
-    return $this->getProperty( $key );
-  }
-  
-  public function setAccountNumber( $value )
-  {
-    return $this->setProperty( 'clientAccountNumber', $value );
-  }
+      $testKey   = 'destinationStreetAddress';
+      $testValue = $this->getProperty( $testKey );
+      dump(
+        __FILE__, 
+        __LINE__, 
+        "\r\n" . "TEST_KEY:=> " . $testKey . " _ " . "TEST_VALUE:=> " . $testValue . "\r\n"
+      );
 
-  public function getAccountPin( $key = 'clientAccountPin' )
-  {
-    return $this->getProperty( $key );
-  }
-  
-  public function setAccountPin( $value )
-  {
-    return $this->setProperty( 'clientAccountPin', $value );
+      return $this;
+    }
+
+    return;
   }
 
 }

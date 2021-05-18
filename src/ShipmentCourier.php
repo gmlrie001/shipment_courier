@@ -29,7 +29,7 @@ class ShipmentCourier
   private $pickupReference2;
   // private $pickupReference = [];
   private $pickupDate;
-  private $pickupReadtTime;
+  private $pickupReadyTime;
   private $pickupClosingTime;
   private $pickupEntityStatus;
   // Origin physical address - pickup point
@@ -91,6 +91,7 @@ class ShipmentCourier
     if ( $key != NULL || isset( $key ) ) {
       if ( $this->checkPropertyExists( $key ) ) {
         $this->{$key} = $value;
+
         return $this;
       }
     }
