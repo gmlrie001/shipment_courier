@@ -2,9 +2,6 @@
 
 namespace Vault\ShipmentCourier\Helpers; // ShipmentCourierHelper;
 
-// use ;
-// use ;
-
 if ( ! function_exists( 'generateGUID' ) ) {
 
   function generateGUID()
