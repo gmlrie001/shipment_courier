@@ -128,16 +128,22 @@
     // ],
 
     'shipmentOrderItems' => [
+      'title', 
+      'desciption', 
+      'length', 
+      'width', 
+      'height', 
+      'weight'
     ],
 
     'shipmentPickupDetails' => [
-      'pickupComments'     => NULL,
-      'pickupReference1'   => NULL,
-      'pickupReference2'   => NULL,
-      'pickupDate'         => NULL,
-      'pickupReadyTime'    => NULL,
-      'pickupClosingTime'  => NULL,
-      'pickupEntityStatus' => NULL
+      'pickupComments'     => "",
+      'pickupReference1'   => "",
+      'pickupReference2'   => "",
+      'pickupDate'         => date( "d/m/Y", strtotime( 'today +2 days' ) ),
+      'pickupReadyTime'    => date( "H\:i", strtotime( 'today +2 days 11am' ) ),
+      'pickupClosingTime'  => date( "H\:i", strtotime( 'today +2 days 5pm' ) ),
+      'pickupEntityStatus' => "ready",
     ],
 
   ];
