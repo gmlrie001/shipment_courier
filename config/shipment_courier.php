@@ -28,6 +28,8 @@
       'originContactPerson' => "M. Riedaa Gamieldien",
       'originContactPhone'  => "89412116",
       'originContactEmail'  => "riedaa@monzamedia.com",
+      'originPlace'         => 5282, // 5458
+      'originTown'          => "WALMER Est, Woodstock", // GARDENS, Cape Town
     ],
 
   // Client specific account information/credentials
