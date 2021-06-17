@@ -93,6 +93,8 @@
       'originContactPhone'  => "0824121116",
       'originContactEmail'  => "riedaa@monzamedia.com",
       'originReference'     => NULL,
+      'originPlace'         => 5458, // 5282, // 5458
+      'originTown'          => "GARDENS, Cape Town", // "WALMER Est, Woodstock", // "GARDENS, Cape Town"
     ],
 
     'shipmentDestination' => [
