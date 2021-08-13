@@ -86,7 +86,7 @@ class ShipmentItems extends ShipmentCourier
       unset( $reqKey );
     }
 
-    dd( $this, get_defined_vars() );
+    // dd( $this, get_defined_vars() );
 
     return $this;
   }
