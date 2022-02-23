@@ -80,6 +80,7 @@
     ],
 
     'shipmentOrigin' => [
+
       'originStreetAddress' => "Incolhm Place",
       'originBusinessPark'  => 'Unit 1, Gardens Business Village',
       'originOtherAddress'  => "Cape Town",
@@ -95,6 +96,7 @@
       'originReference'     => NULL,
       'originPlace'         => 5458, // 5282, // 5458
       'originTown'          => "GARDENS, Cape Town", // "WALMER Est, Woodstock", // "GARDENS, Cape Town"
+
     ],
 
     'shipmentDestination' => [
