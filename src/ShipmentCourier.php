@@ -7,33 +7,38 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Config;
 
+use Vault\ShipmentCourier\Helpers\HelperClass;
+
 
 class ShipmentCourier
 {
   // Client credentials
   private $clientEmail;
-  private $clientAccountNumber;
   private $clientPassword;
+  private $clientAccountNumber;
   private $clientAccountPin;
+
+  // The shipment line items
+  private $shipmentLineItems;
 
   // Special delivery instructions
   private $specialDeliveryInstructions;
-
+ 
   // Shipment type
   private $shipmentIsDocument = false;
   private $shipmentRequiresInsurance = false;
   private $shipmentInsuranceValue = 0;
-
+ 
   // Pickup details
   private $pickupComments;
   private $pickupReference1;
   private $pickupReference2;
   // private $pickupReference = [];
   private $pickupDate;
-  private $pickupReadtTime;
+  private $pickupReadyTime;
   private $pickupClosingTime;
   private $pickupEntityStatus;
-
+ 
   // Origin physical address - pickup point
   private $originStreetAddress;
   private $originBusinessPark;
@@ -50,8 +55,7 @@ class ShipmentCourier
   private $originContactEmail;
   // Reference1 and Reference2 held in array;
   private $originReference = [];
-
-
+ 
   // Destination physical address - pickup point
   private $destinationStreetAddress;
   private $destinationBusinessPark;
@@ -68,14 +72,14 @@ class ShipmentCourier
   private $destinationContactEmail;
   // Reference1 and Reference2 held in array;
   private $destinationReference = [];
-
+ 
   // Get the config. for this class
   public $shipmentConfig;
 
 
-  public function __construct( Config $shipmentConfig = NULL )
+  public function __construct()
   {
-    $this->shipmentConfig = $shipmentConfig;
+    $this->shipmentConfig = Config::get( 'shipment_courier' );
 
     return $this;
   }
@@ -89,8 +93,6 @@ class ShipmentCourier
       }
 
     }
-
-    return;
   }
 
   public function setProperty( $key, $value = NULL )
@@ -99,19 +101,39 @@ class ShipmentCourier
 
       if ( $this->checkPropertyExists( $key ) ) {
         $this->{$key} = $value;
+
         return $this;
       }
 
     }
-
-    return;
   }
 
-  private function checkPropertyExists( $key )
+  public function checkPropertyExists( $key )
   {
-    $objProps = array_keys( get_object_vars( $this ) );
+    // $that = new static();
+    // dd( __METHOD__, __LINE__, 
+    //   new \ReflectionClass( $that ), 
+    //   $key,
+    //   in_array( $key, array_keys( get_object_vars( $that ) ) ), 
+    //   HelperClass::objectProps( $key, $that ), 
+    //   HelperClass::getArrayKeys( HelperClass::getObjectProps( $that ) ),
+    //   HelperClass::isInArray( 
+    //     $key, 
+    //     HelperClass::getArrayKeys(
+    //       HelperClass::getObjectProps( $that )
+    //     )
+    //   )
+    // );
 
-    return in_array( $key, $objProps );
+    // return HelperClass::isInArray( 
+    //   $key, 
+    //   HelperClass::objectProps( $this )
+    // );
+    return in_array( 
+      $key, 
+      array_keys( get_object_vars( $this ) ) 
+    );
   }
+
 
 }
