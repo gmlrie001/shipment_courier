@@ -172,6 +172,7 @@
       'pickupReadyTime'    => date( "H\:i", strtotime( 'today +2 days 11am' ) ),
       'pickupClosingTime'  => date( "H\:i", strtotime( 'today +2 days 5pm' ) ),
       'pickupEntityStatus' => "ready",
+
     ],
 
   ];
